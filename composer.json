@@ -1,5 +1,5 @@
 {
-  "name": "Phalcon Base Projet",
+  "name": "cottacush/phalcon-base-project",
   "require": {
     "bshaffer/oauth2-server-php": "^1.8",
     "cottacush/phalcon-utils": "^1.10",
