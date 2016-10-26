@@ -1,5 +1,17 @@
 {
   "name": "cottacush/phalcon-base-project",
+  "description": "Base project for bootstrapping phalcon projects",
+  "keywords": [
+    "phalcon",
+    "framework",
+    "basic",
+    "project template",
+    "improved"
+  ],
+  "version": "1.0.0",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "stable",
   "require": {
     "bshaffer/oauth2-server-php": "^1.8",
     "cottacush/phalcon-utils": "^1.10",
@@ -12,5 +24,18 @@
     "codeception/codeception": "^2.2",
     "redcomponent/teststatistics": "^2.2",
     "flow/jsonpath": "^0.3.1"
-  }
+  },
+  "config": {
+    "process-timeout": 1800,
+    "discard-changes": true
+  },
+  "authors": [
+    {
+      "name": "Adeyemi Olaoye",
+      "email": "yemi@cottacush.com",
+      "homepage": "https://adeyemiolaoye.me",
+      "role": "Software Engineer"
+    }
+  ]
 }
+
