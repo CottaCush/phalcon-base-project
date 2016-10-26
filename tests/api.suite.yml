@@ -1,0 +1,16 @@
+class_name: ApiTester
+modules:
+    enabled: [PhpBrowser, REST, Db, Asserts, \Helper\Api]
+    config:
+      PhpBrowser:
+          url: http://test.app.com
+      REST:
+          depends: PhpBrowser
+          url:  http://test.app.com
+      Db:
+          dsn: 'mysql:host=localhost;dbname=vconnect_sss_test'
+          user: 'root'
+          password: ''
+          populate: false
+          teardown: true
+          cleanup: true

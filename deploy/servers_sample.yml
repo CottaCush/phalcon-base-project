@@ -1,0 +1,18 @@
+# app/config/servers.yml
+staging:
+    host:   ********
+    user:   *******
+    stage:  staging
+    pem_file: ******
+    deploy_path:   "/data/html/CodedAgentsService"
+    branch: staging
+    local_path: *******
+    DEFAULT_OAUTH_CLIENT_ID: *******
+    DEFAULT_OAUTH_CLIENT_SECRET: *******
+    PHINX_DBHOST: *******
+    PHINX_DBNAME: *******
+    PHINX_DBUSER: *******
+    PHINX_DBPASS: *******
+    APPLICATION_ENV: ******
+
+
