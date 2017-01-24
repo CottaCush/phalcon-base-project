@@ -3,20 +3,16 @@
 namespace App\Bootstrap;
 
 use App\Constants\Services;
+use App\Fractal\CustomSerializer;
 use App\Library\Response;
-use OAuth2\GrantType\AuthorizationCode;
+use League\Fractal\Manager as FractalManager;
 use OAuth2\GrantType\ClientCredentials;
 use OAuth2\GrantType\RefreshToken;
 use OAuth2\Server;
 use OAuth2\Storage\Pdo;
-use Phalcon\Cli\Console;
 use Phalcon\Config;
 use Phalcon\Di\Injectable;
 use Phalcon\DiInterface;
-use Phalcon\Logger;
-use Phalcon\Logger\Adapter\File;
-use Phalcon\Security;
-use PhalconRest\Api;
 
 /**
  * Class ApiServicesBootStrap
@@ -52,6 +48,15 @@ class ApiServicesBootStrap extends BaseServicesBootStrap
                 )
             );
             return $server;
+        });
+
+        /**
+         * Fractal
+         */
+        $di->setShared(Services::FRACTAL_MANAGER, function () {
+            $fractal = new FractalManager();
+            $fractal->setSerializer(new CustomSerializer);
+            return $fractal;
         });
     }
 }

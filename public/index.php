@@ -1,14 +1,12 @@
 <?php
 
 use App\Bootstrap\ApiServicesBootStrap;
+use App\Bootstrap\Bootstrap;
 use App\Bootstrap\MiddlewareBootstrap;
 use App\Bootstrap\RouteBootstrap;
-use App\Bootstrap\BaseServicesBootStrap;
 use App\Constants\HttpStatusCodes;
 use App\Constants\ResponseCodes;
 use App\Constants\ResponseMessages;
-use Phalcon\Logger;
-use Phalcon\Mvc\Micro;
 
 ini_set('display_errors', "On");
 error_reporting(E_ALL);
@@ -16,15 +14,16 @@ error_reporting(E_ALL);
 //include Composer Auto Loader
 include __DIR__ . "/../vendor/autoload.php";
 
-$dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'env');
+$envFile = ((getenv('APPLICATION_ENV') == 'test') ? '.env.test' : '.env');
+$dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'env', $envFile);
 $dotenv->load();
 
 $env = getenv('APPLICATION_ENV');
-$config = include __DIR__ . "/../app/config/config.php";
+$config = include __DIR__ . "/../App/Config/config.php";
 
 
 //include Phalcon Loader
-include __DIR__ . "/../app/config/loader.php";
+include __DIR__ . "/../App/Config/loader.php";
 
 // Instantiate application & DI
 $di = new PhalconRest\Di\FactoryDefault();
@@ -32,7 +31,7 @@ $app = new PhalconRest\Api($di);
 
 
 // Bootstrap components
-$bootstrap = new \App\Bootstrap\Bootstrap(
+$bootstrap = new Bootstrap(
     new ApiServicesBootStrap,
     new MiddlewareBootstrap,
     new RouteBootstrap

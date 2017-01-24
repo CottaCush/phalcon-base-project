@@ -18,12 +18,15 @@
     "redound/phalcon-rest": "^1.4.0",
     "vlucas/phpdotenv": "^2.2",
     "phalcon/incubator": "^2.0.8",
-    "robmorgan/phinx": "^0.5.3"
+    "robmorgan/phinx": "^0.5.3",
+    "ext-phalcon": ">=3.0.0"
   },
   "require-dev": {
     "codeception/codeception": "^2.2",
     "redcomponent/teststatistics": "^2.2",
-    "flow/jsonpath": "^0.3.1"
+    "flow/jsonpath": "^0.3.1",
+    "pagerfanta/pagerfanta": "^1.0",
+    "league/fractal": "^0.13.0"
   },
   "config": {
     "process-timeout": 1800,
@@ -36,6 +39,10 @@
       "homepage": "https://adeyemiolaoye.me",
       "role": "Software Engineer"
     }
-  ]
+  ],
+  "suggest": {
+    "pagerfanta/pagerfanta": "Install PagerFanta to use Pagination",
+    "league/fractal": "Install Fractal to use Transformers"
+  }
 }
 

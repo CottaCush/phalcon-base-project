@@ -5,7 +5,6 @@ namespace App\CInterface;
 use Phalcon\Config;
 use Phalcon\Di\Injectable;
 use Phalcon\DiInterface;
-use PhalconRest\Api;
 
 /**
  * Interface BootstrapInterface

@@ -1,5 +1,7 @@
 <?php
 
+include_once dirname(__FILE__) . '/public/index.php';
+
 return [
     'paths' => [
         'migrations' => '%%PHINX_CONFIG_DIR%%/db/migrations',
