@@ -3,8 +3,6 @@ machine:
     version: 5.6.29
   services:
     - mysql
-    - nginx
-    - apache2
 
   hosts:
     test.phalconbaseproject.com: 127.0.0.1
