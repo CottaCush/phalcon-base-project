@@ -20,4 +20,7 @@ dependencies:
     - curl -L https://raw.githubusercontent.com/yemexx1/phalcon-switcher/master/phalcon-switcher.sh && sudo mv phalcon-switcher.sh /usr/local/bin/phalcon-switcher; sudo phalcon-switcher 3.0.1
 
 
-
+general:
+  branches:
+    only:
+     - circleci-integration
