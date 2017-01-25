@@ -15,4 +15,4 @@ dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install ant
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
-    - curl -L https://raw.githubusercontent.com/yemexx1/phalcon-switcher/master/phalcon-switcher.sh && sudo mv phalcon-switcher.sh /usr/local/bin/phalcon-switcher; sudo phalcon-switcher 3.0.1
+    - curl -OL https://raw.githubusercontent.com/yemexx1/phalcon-switcher/master/phalcon-switcher.sh && sudo chmod +x phalcon-switcher.sh && sudo mv phalcon-switcher.sh /usr/local/bin/phalcon-switcher; sudo phalcon-switcher 3.0.1
