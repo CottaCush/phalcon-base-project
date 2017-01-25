@@ -15,4 +15,4 @@ dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install ant
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
-    - sudo add-apt-repository -y ppa:phalcon/stable; sudo apt-get update; sudo apt-get install php-phalcon
+    - sudo add-apt-repository -y ppa:phalcon/stable; sudo apt-get update; sudo apt-get install php5-phalcon
