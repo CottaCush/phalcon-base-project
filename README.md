@@ -42,12 +42,13 @@ Sample Virtual Host Config for Apache
 ```apache
 <VirtualHost *:80>
     ServerAdmin admin@app.com
-    DocumentRoot "<WebServer Root Dir>/app/public"
-    ServerName local-service.app.com
-    ServerAlias local-service.app
-    ErrorLog ${APACHE_LOG_DIR}/local-service.app.error.log
-    CustomLog ${APACHE_LOG_DIR}/local-service.app.access.log common
-    <Directory <WebServer Root Dir>/app/public>
+    DocumentRoot "<WebServer Root Dir>/phalcon-base-project/public"
+    ServerName test.phalconbaseproject.com
+    ServerAlias test.phalconbaseproject
+    SetEnv APPLICATION_ENV test
+    ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log
+    CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common
+    <Directory <WebServer Root Dir>/phalcon-base-project/public>
        AllowOverride all
        Options -MultiViews
        Require all granted
@@ -101,7 +102,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/cottacush/phalcon-base-project.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/cottacush/phalcon-base-project.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/cottacush/phalcon-base-project
+[link-packagist]: https://poser.pugx.org/cottacush/phalcon-base-project/v/stable
 [link-travis]: https://travis-ci.org/cottacush/phalcon-base-project
 [link-scrutinizer]: https://scrutinizer-ci.com/g/cottacush/phalcon-base-project/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/cottacush/phalcon-base-project

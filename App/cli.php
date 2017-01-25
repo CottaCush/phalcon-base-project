@@ -23,11 +23,11 @@ include __DIR__ . "/../vendor/autoload.php";
 $dotenv = new Dotenv\Dotenv(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'env');
 $dotenv->load();
 $env = getenv('APPLICATION_ENV');
-$config = include __DIR__ . "/../app/config/config_cli.php";
+$config = include __DIR__ . "/../App/Config/config_cli.php";
 
 
 //include Phalcon Loader
-include __DIR__ . "/../app/config/loader.php";
+include __DIR__ . "/../App/Config/loader.php";
 
 /**
  * Process the console arguments

@@ -7,10 +7,10 @@ require 'recipe/common.php';
 
 serverList('deploy/servers.yml');
 
-set('writable_dirs', ['app/logs']);
-set('shared_dirs', ['app/logs']);
+set('writable_dirs', ['App/logs']);
+set('shared_dirs', ['App/logs']);
 
-env('composer_options', 'install --verbose --prefer-dist --optimize-autoloader --no-progress --no-interaction');
+env('composer_options', 'install --verbose --prefer-dist --optimize-autoloader --no-progress --no-interaction --no-dev');
 
 
 task('release:tag_release', function () {
@@ -81,6 +81,10 @@ task('deploy:seed_oauth_creds', function () {
     run('cd {{release_path}} && CLIENT_ID={{DEFAULT_OAUTH_CLIENT_ID}} CLIENT_SECRET={{DEFAULT_OAUTH_CLIENT_SECRET}} PHINX_DBHOST={{PHINX_DBHOST}} PHINX_DBUSER={{PHINX_DBUSER}} PHINX_DBPASS={{PHINX_DBPASS}} PHINX_DBNAME={{PHINX_DBNAME}} php vendor/bin/phinx seed:run -s OauthSeeder -e {{APPLICATION_ENV}}');
 })->desc('Seed OAuth Credentials');
 
+task('deploy:share_logs', function () {
+    run('sudo chmod -R 777 {{deploy_path}}/shared/App/logs');
+});
+
 /**
  * Upload env file
  */
@@ -110,8 +114,9 @@ task('deploy', [
     'deploy:seed_oauth_creds',
     'deploy:symlink',
     'deploy:writable',
+    'deploy:share_logs',
     'cleanup'
 ])->desc('Deploy Project');
 
 
-set('repository', 'git@bitbucket.org:adeyemi/app.git');
+set('repository', 'git@github.com:CottaCush/phalcon-base-project.git');

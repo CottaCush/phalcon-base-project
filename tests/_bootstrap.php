@@ -2,11 +2,6 @@
 
 include_once dirname(__FILE__) . '/../public/index.php';
 
-exec('mysql -h ' . getenv('DB_HOST') . ' -u root -e "DROP DATABASE IF EXISTS ' . getenv('TEST_DB_NAME') . ';"');
-exec('mysql -h ' . getenv('DB_HOST') . ' -u root -e "CREATE DATABASE ' . getenv('TEST_DB_NAME') . ';"');
-
-exec(dirname(__FILE__) . '/../vendor/bin/phinx migrate -e testing');
-
-exec(dirname(__FILE__) . '/../vendor/bin/phinx seed:run -s OauthSeeder -e testing');
+exec('DB_USERNAME=' . getenv('DB_USERNAME') . ' DB_PASSWORD= DB_NAME=' . getenv('DB_NAME') . ' DB_HOST=' . getenv('DB_HOST') . ' CLIENT_SECRET=' . getenv('CLIENT_SECRET') . ' CLIENT_ID=' . getenv('CLIENT_ID') . ' ant migrations');
 
 include_once '_support/CommonTests.php';

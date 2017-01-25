@@ -6,11 +6,11 @@ modules:
           url: http://test.app.com
       REST:
           depends: PhpBrowser
-          url:  http://test.app.com
+          url:  http://test.phalconbaseproject.com
       Db:
-          dsn: 'mysql:host=localhost;dbname=vconnect_sss_test'
-          user: 'root'
-          password: ''
+          dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
+          user: '%DB_USERNAME%'
+          password: '%DB_PASSWORD%'
           populate: false
           teardown: true
           cleanup: true
