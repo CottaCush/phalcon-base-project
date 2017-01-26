@@ -11,6 +11,8 @@ machine:
     DB_PASSWORD: ""
     DEBUG: true
     OAUTH_ENABLED: true
+    CLIENT_SECRET: client_secret
+    CLIENT_ID: client_id
   hosts:
     test.phalconbaseproject.com: 127.0.0.1
   post:
@@ -28,3 +30,5 @@ dependencies:
     - git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
     - sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /opt/circleci/php/$(phpenv global)/etc/php.ini
     - sudo apt-get install ant
+    - composer config -g github-oauth.github.com 85b86412c946a43e36b9f4ff50df1ff0bfb6086b
+    - composer install
