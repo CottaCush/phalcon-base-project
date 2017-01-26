@@ -3,16 +3,25 @@ machine:
     version: 5.6.22
   services:
     - mysql
-
+  environment:
+    APPLICATION_ENV: test
+    DB_HOST: localhost
+    DB_NAME: phalcon_base_project_test
+    DB_USERNAME: root
+    DB_PASSWORD: ""
+    DEBUG: true
+    OAUTH_ENABLED: true
   hosts:
     test.phalconbaseproject.com: 127.0.0.1
+  post:
+    - touch .env.test
 
 test:
   override:
     - ant build
 
 dependencies:
-  pre:
+  override:
     - LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php; sudo apt-get update; sudo apt-get install -y php5.6
     - sudo apt-get install php5.6-dev
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
