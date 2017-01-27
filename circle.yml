@@ -30,5 +30,5 @@ dependencies:
     - git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
     - sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /opt/circleci/php/$(phpenv global)/etc/php.ini
     - sudo apt-get install ant
-    - composer config -g github-oauth.github.com c778b9ef20c7b592e7b7cefe88d8a4321913f98a
+    - composer config -g github-oauth.github.com $GITHUB_TOKEN
     - composer install
