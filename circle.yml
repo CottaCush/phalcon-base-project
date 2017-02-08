@@ -15,8 +15,6 @@ machine:
     CLIENT_ID: client_id
   hosts:
     test.phalconbaseproject.com: 127.0.0.1
-  post:
-    - touch .env.test
 
 test:
   override:
@@ -32,3 +30,4 @@ dependencies:
     - sudo apt-get install ant
     - composer config -g github-oauth.github.com $GITHUB_TOKEN
     - composer install
+    - touch .env.test
