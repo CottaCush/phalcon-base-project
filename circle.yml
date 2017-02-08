@@ -30,4 +30,4 @@ dependencies:
     - sudo apt-get install ant
     - composer config -g github-oauth.github.com $GITHUB_TOKEN
     - composer install
-    - touch .env.test
+    - touch env/.env.test
