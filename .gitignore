@@ -2,7 +2,7 @@
 vendor/
 deploy/servers.yml
 tests/_output/*
-app/logs
-!app/logs/.gitkeep
+App/logs
+!App/logs/.gitkeep
 composer.lock
 tests/_support/_generated
