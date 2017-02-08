@@ -31,3 +31,4 @@ dependencies:
     - composer config -g github-oauth.github.com $GITHUB_TOKEN
     - composer install
     - touch env/.env.test
+    - chmod -R 777 App/logs
