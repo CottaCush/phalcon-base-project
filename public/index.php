@@ -23,6 +23,7 @@ $dotenv->load();
 $env = getenv('APPLICATION_ENV');
 $config = include __DIR__ . "/../App/Config/config.php";
 
+ini_set('display_errors', (($config->debug) ? "On" : "Off"));
 
 //include Phalcon Loader
 include __DIR__ . "/../App/Config/loader.php";
