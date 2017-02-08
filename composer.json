@@ -26,7 +26,12 @@
     "redcomponent/teststatistics": "^2.2",
     "flow/jsonpath": "^0.3.1",
     "pagerfanta/pagerfanta": "^1.0",
-    "league/fractal": "^0.13.0"
+    "league/fractal": "^0.13.0",
+    "squizlabs/php_codesniffer": "2.*",
+    "pdepend/pdepend" : "2.2.4",
+    "phploc/phploc": "*",
+    "phpmd/phpmd" : "@stable",
+    "sebastian/phpcpd": "*"
   },
   "config": {
     "process-timeout": 1800,
