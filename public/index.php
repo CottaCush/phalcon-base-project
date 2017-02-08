@@ -8,6 +8,8 @@ use App\Constants\HttpStatusCodes;
 use App\Constants\ResponseCodes;
 use App\Constants\ResponseMessages;
 
+date_default_timezone_set('UTC');
+
 ini_set('display_errors', "On");
 error_reporting(E_ALL);
 
