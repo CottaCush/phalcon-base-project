@@ -28,16 +28,7 @@ dependencies:
     - sudo apt-get install ant
     - composer config -g github-oauth.github.com $GITHUB_TOKEN
     - composer install
-    - touch env/.env.test
-    - sudo echo 'APPLICATION_ENV: test' | tee - a env/.env.test
-    - sudo echo 'DB_HOST: 127.0.0.1' | tee - a env/.env.test
-    - sudo echo 'DB_NAME: phalcon_base_project_test' | tee - a env/.env.test
-    - sudo echo 'DB_USERNAME: root' | tee - a env/.env.test
-    - sudo echo 'DB_PASSWORD: ""' | tee - a env/.env.test
-    - sudo echo 'DEBUG: true' | tee - a env/.env.test
-    - sudo echo 'OAUTH_ENABLED: true' | tee - a env/.env.test
-    - sudo echo 'CLIENT_SECRET: client_secret' | tee - a env/.env.test
-    - sudo echo 'CLIENT_ID: client_id' | tee - a env/.env.test
+    - mv env/.env.circleci env/.env.test
     - chmod -R 777 App/logs
     - sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' ServerAdmin yemi@cottacush.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
