@@ -32,13 +32,13 @@ dependencies:
     - chmod -R 777 App/logs
     - sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' ServerAdmin yemi@cottacush.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - sudo echo ' DocumentRoot "/home/ubuntu/phalcon-base-project/current/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+    - sudo echo ' DocumentRoot "/home/ubuntu/phalcon-base-project/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' ServerName test.phalconbaseproject.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' ServerAlias test.phalconbaseproject' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' SetEnv APPLICATION_ENV test' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - sudo echo ' <Directory /home/ubuntu/phalcon-base-project/current/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+    - sudo echo ' <Directory /home/ubuntu/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo '    AllowOverride all' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo '    Options -MultiViews' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo '    Require all granted' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
