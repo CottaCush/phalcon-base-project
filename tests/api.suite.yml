@@ -3,7 +3,7 @@ modules:
     enabled: [PhpBrowser, REST, Db, Asserts, \Helper\Api]
     config:
       PhpBrowser:
-          url: http://test.app.com
+          url: http://test.phalconbaseproject.com
       REST:
           depends: PhpBrowser
           url:  http://test.phalconbaseproject.com

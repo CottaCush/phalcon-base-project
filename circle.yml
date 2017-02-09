@@ -32,3 +32,20 @@ dependencies:
     - composer install
     - touch env/.env.test
     - chmod -R 777 App/logs
+    - sudo echo '
+      <VirtualHost *:80>
+          ServerAdmin yemi@cottacush.com
+          DocumentRoot "/home/ubuntu/phalcon-base-project/current/public"
+          ServerName test.phalconbaseproject.com
+          ServerAlias test.phalconbaseproject
+          ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log
+          CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common
+          <Directory /home/ubuntu/phalcon-base-project/current/public>
+             AllowOverride all
+             Options -MultiViews
+             Require all granted
+          </Directory>
+      </VirtualHost>
+      ' | sudo tee /etc/apache2/sites-available/phalcon-base-project.conf
+    - cd /etc/apache2/sites-available && sudo a2ensite phalcon-base-project.conf && sudo service apache2 restart
+    - sh ./runtest.sh
