@@ -8,6 +8,8 @@ use App\Constants\HttpStatusCodes;
 use App\Constants\ResponseCodes;
 use App\Constants\ResponseMessages;
 
+date_default_timezone_set('UTC');
+
 ini_set('display_errors', "On");
 error_reporting(E_ALL);
 
@@ -21,6 +23,7 @@ $dotenv->load();
 $env = getenv('APPLICATION_ENV');
 $config = include __DIR__ . "/../App/Config/config.php";
 
+ini_set('display_errors', (($config->debug) ? "On" : "Off"));
 
 //include Phalcon Loader
 include __DIR__ . "/../App/Config/loader.php";
