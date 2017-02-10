@@ -8,9 +8,9 @@ modules:
           depends: PhpBrowser
           url:  http://test.phalconbaseproject.com
       Db:
-          dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
-          user: '%DB_USERNAME%'
-          password: '%DB_PASSWORD%'
+          dsn: 'mysql:host=127.0.0.1;dbname=phalcon_base_project_test'
+          user: 'root'
+          password: ''
           populate: false
           teardown: true
           cleanup: true
