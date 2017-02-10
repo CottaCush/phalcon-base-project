@@ -45,4 +45,5 @@ dependencies:
     - sudo echo ' </Directory>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' </VirtualHost>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - cd /etc/apache2/sites-available && sudo a2ensite phalcon-base-project.conf && sudo service apache2 restart
+    - sudo a2enmod rewrite && sudo service apache2 restart
     - sh ./runtest.sh
