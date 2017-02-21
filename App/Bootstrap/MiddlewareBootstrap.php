@@ -23,7 +23,7 @@ class MiddlewareBootstrap implements BootstrapInterface
             $api->attach(new OAuthMiddleware());
         }
 
-        if ($config->environment != 'production') {
+        if ($config->environment != 'production' && $config->debug) {
             $api->attach(new RequestLoggerMiddleware());
         }
     }
