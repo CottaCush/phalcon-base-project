@@ -12,15 +12,15 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## [1.1.0] - 2017-05-24 
 
 ### Added
- - Add BaseMiddleWare Class to handle common middleware actions 
- - Add BaseGateway
- - Add Custom Logger
- - Add ModelTransformer
- - Add CommonValidations
+ - Added BaseMiddleWare Class to handle common middleware actions 
+ - Added BaseGateway
+ - Added Custom Logger
+ - Added ModelTransformer
+ - Added CommonValidations
  - Added BatchInsert, HttpClient and PaginatorAdapter library classes
- - Add more Util functions
+ - Added more Util functions
  
  ### Changed
- - Change Interfaces namespace
+ - Changed Interfaces namespace
  - Added more suggestions to composer.json
- - Update README to reflect nginx setup
+ - Updated README to reflect nginx setup
