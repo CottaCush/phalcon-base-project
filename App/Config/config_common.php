@@ -5,7 +5,7 @@ return [
         'modelsDir' => __DIR__ . '/../Model/',
         'controllersDir' => __DIR__ . '/../Controller/',
         'libsDir' => __DIR__ . '/../Library/',
-        'interfacesDir' => __DIR__ . '/../CInterface/',
+        'interfacesDir' => __DIR__ . '/../Interfaces/',
         'pluginsDir' => __DIR__ . '/../plugins/',
         'logsDir' => __DIR__ . '/../logs/',
         'constantsDir' => __DIR__ . '/../Constants/',

@@ -2,12 +2,10 @@
 
 namespace App\Bootstrap;
 
-use App\Bootstrap\Bootstrap;
-use App\CInterface\BootstrapInterface;
+use App\Interfaces\BootstrapInterface;
 use Phalcon\Config;
 use Phalcon\Di\Injectable;
 use Phalcon\DiInterface;
-use PhalconRest\Api;
 use Phalcon\Mvc\Micro\Collection as RouteHandler;
 
 /**

@@ -11,6 +11,12 @@ $config = array_merge(require 'config_common.php', [
         'excluded_paths' => [
             '/oauth'
         ]
+    ],
+
+    'requestLogger' => [
+        'excluded_paths' => [
+            '/authentication'
+        ]
     ]
 ]);
 

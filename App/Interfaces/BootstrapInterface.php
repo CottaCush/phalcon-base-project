@@ -1,15 +1,16 @@
 <?php
 
-namespace App\CInterface;
+namespace App\Interfaces;
 
 use Phalcon\Config;
 use Phalcon\Di\Injectable;
 use Phalcon\DiInterface;
+use PhalconRest\Api;
 
 /**
  * Interface BootstrapInterface
  * @author Adeyemi Olaoye <yemi@cottacush.com>
- * @package App
+ * @package App\Interfaces
  */
 interface BootstrapInterface
 {

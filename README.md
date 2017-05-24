@@ -56,6 +56,32 @@ Sample Virtual Host Config for Apache
 </VirtualHost>
 ```
 
+Sample Server Block for nginx
+```
+server {
+    listen      80;
+    server_name test.phalconbaseproject.com;
+    root        <project root>/public;
+    index       index.php;
+    charset     utf-8;
+    access_log <log directory>/test.phalconbaseproject.com.access.log;
+    error_log <log directory>/test.phalconbaseproject.com.error.log;
+
+ location / {
+        try_files $uri $uri/ /index.php?_url=$uri&$args;
+    }
+
+
+    location ~ \.php$ {
+    fastcgi_pass unix:<php fpm sock file path>;
+    fastcgi_index index.php;
+    fastcgi_param APPLICATION_ENV test;
+    include <fastcgi params path>/fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+    }
+}
+```
+
 ## Environment Variables
 Make a copy of  `.env.sample` to `.env` in the env directory and replace values as appropriate.
 
