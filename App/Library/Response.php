@@ -2,7 +2,7 @@
 
 namespace App\Library;
 
-use App\CInterface\JSend;
+use App\Interfaces\JSend;
 use App\Constants\HttpStatusCodes;
 use App\Constants\ResponseMessages;
 use Phalcon\Http\Response as PhalconResponse;

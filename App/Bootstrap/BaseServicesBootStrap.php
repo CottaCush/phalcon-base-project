@@ -2,7 +2,7 @@
 
 namespace App\Bootstrap;
 
-use App\CInterface\BootstrapInterface;
+use App\Interfaces\BootstrapInterface;
 use App\Constants\Services;
 use App\Library\Response;
 use OAuth2\GrantType\AuthorizationCode;

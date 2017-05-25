@@ -2,7 +2,7 @@
 
 namespace App\Bootstrap;
 
-use App\CInterface\BootstrapInterface;
+use App\Interfaces\BootstrapInterface;
 use App\Middleware\RequestLoggerMiddleware;
 use App\Middleware\OAuthMiddleware;
 use Phalcon\Config;

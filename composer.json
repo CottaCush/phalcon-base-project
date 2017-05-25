@@ -8,7 +8,6 @@
     "project template",
     "improved"
   ],
-  "version": "1.0.0",
   "type": "project",
   "license": "MIT",
   "minimum-stability": "stable",
@@ -47,7 +46,11 @@
   ],
   "suggest": {
     "pagerfanta/pagerfanta": "Install PagerFanta to use Pagination",
-    "league/fractal": "Install Fractal to use Transformers"
+    "league/fractal": "Install Fractal to use Transformers",
+    "wsdl2phpgenerator/wsdl2phpgenerator": "Install WSDL2PHP generator to generate classes from WSDL",
+    "besimple/soap-client": "Install SOAP Client for connecting with SOAP services",
+    "xamin/handlebars.php": "Install Handlebars for fluent templating",
+    "mcustiel/phiremock-codeception-extension": "Install phiremock for mocking"
   }
 }
 

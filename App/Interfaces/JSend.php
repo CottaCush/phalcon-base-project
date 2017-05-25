@@ -1,10 +1,11 @@
 <?php
 
-namespace App\CInterface;
+namespace App\Interfaces;
 
 /**
  * Interface JSend
  * @author Adeyemi Olaoye <yemi@cottacush.com>
+ * @package App\Interfaces
  */
 interface JSend
 {
@@ -31,4 +32,3 @@ interface JSend
      */
     public function sendFail($data, $http_status_code = 500);
 }
-
