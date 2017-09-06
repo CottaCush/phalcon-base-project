@@ -24,3 +24,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
  - Changed Interfaces namespace
  - Added more suggestions to composer.json
  - Updated README to reflect nginx setup
+
+
+## [1.2.0] - 2017-09-06
+
+### Added
+ - Import base application files from phalcon utils

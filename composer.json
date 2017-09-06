@@ -13,10 +13,10 @@
   "minimum-stability": "stable",
   "require": {
     "bshaffer/oauth2-server-php": "^1.8",
-    "cottacush/phalcon-utils": "^1.10",
+    "cottacush/phalcon-utils": "^2.2",
     "redound/phalcon-rest": "^1.4.0",
     "vlucas/phpdotenv": "^2.2",
-    "phalcon/incubator": "^2.0.8",
+    "phalcon/incubator": "^3.0",
     "robmorgan/phinx": "^0.5.3",
     "ext-phalcon": ">=3.0.0"
   },
