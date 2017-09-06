@@ -1,12 +1,14 @@
 <?php
 
 use App\Bootstrap\ApiServicesBootStrap;
-use App\Bootstrap\Bootstrap;
 use App\Bootstrap\MiddlewareBootstrap;
 use App\Bootstrap\RouteBootstrap;
-use App\Constants\HttpStatusCodes;
 use App\Constants\ResponseCodes;
 use App\Constants\ResponseMessages;
+use PhalconUtils\Bootstrap\Bootstrap;
+use PhalconUtils\Bootstrap\OAuthRouteBootstrap;
+use PhalconUtils\Bootstrap\OAuthServiceBootstrap;
+use PhalconUtils\Constants\HttpStatusCodes;
 
 date_default_timezone_set('UTC');
 
@@ -36,8 +38,10 @@ $app = new PhalconRest\Api($di);
 // Bootstrap components
 $bootstrap = new Bootstrap(
     new ApiServicesBootStrap,
+    new OAuthServiceBootstrap,
     new MiddlewareBootstrap,
-    new RouteBootstrap
+    new RouteBootstrap,
+    new OAuthRouteBootstrap
 );
 
 $bootstrap->run($app, $di, $config);
@@ -45,7 +49,7 @@ $bootstrap->run($app, $di, $config);
 
 //handle invalid routes
 $app->notFound(function () use ($app) {
-    $app->response->setStatusCode(404, HttpStatusCodes::getMessage(404))->sendHeaders();
+    $app->response->setStatusCode(501, HttpStatusCodes::getMessage(501))->sendHeaders();
     $app->response->setContentType('application/json');
     $app->response->setJsonContent(
         [
