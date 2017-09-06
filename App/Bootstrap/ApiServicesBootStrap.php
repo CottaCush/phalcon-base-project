@@ -7,7 +7,8 @@ use League\Fractal\Manager as FractalManager;
 use Phalcon\Config;
 use Phalcon\Di\Injectable;
 use Phalcon\DiInterface;
-use PhalconUtils\Http\Response;use PhalconUtils\Transformer\ResponseDataSerializer;
+use PhalconUtils\Http\Response;
+use PhalconUtils\Transformer\ResponseDataSerializer;
 
 /**
  * Class ApiServicesBootStrap
