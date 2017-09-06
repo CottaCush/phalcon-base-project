@@ -2,15 +2,7 @@
 
 namespace App\Bootstrap;
 
-use App\Interfaces\BootstrapInterface;
 use App\Constants\Services;
-use App\Library\Response;
-use OAuth2\GrantType\AuthorizationCode;
-use OAuth2\GrantType\ClientCredentials;
-use OAuth2\GrantType\RefreshToken;
-use OAuth2\Server;
-use OAuth2\Storage\Pdo;
-use Phalcon\Cli\Console;
 use Phalcon\Config;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Di\Injectable;
@@ -18,22 +10,20 @@ use Phalcon\DiInterface;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Logger;
 use Phalcon\Logger\Adapter\File;
-use Phalcon\Mvc\Model\Manager as ModelsManager;
-use Phalcon\Security;
-use PhalconRest\Api;
-use Pheanstalk\Pheanstalk;
-use Simpleue\Queue\BeanStalkdQueue;
+use PhalconUtils\Bootstrap\BootstrapInterface;
+use PhalconUtils\Bootstrap\DefaultServicesBootstrap;
 
 /**
  * Class BaseServicesBootStrap
  * @author Adeyemi Olaoye <yemi@cottacush.com>
  * @package App\Library\BootStrap
  */
-abstract class BaseServicesBootStrap implements BootstrapInterface
+abstract class BaseServicesBootStrap extends DefaultServicesBootstrap implements BootstrapInterface
 {
-
     public function run(Injectable $app, DiInterface $di, Config $config)
     {
+        parent::run($app, $di, $config);
+
         $di->setShared(Services::DB, function () use ($config) {
             $connection = new DbAdapter([
                 'host' => $config->database->host,
@@ -59,21 +49,8 @@ abstract class BaseServicesBootStrap implements BootstrapInterface
             return $connection;
         });
 
-        $di->setShared(Services::MODELS_MANAGER, function () {
-            return new ModelsManager();
-        });
-
-        $di->setShared(Services::SECURITY, function () {
-            $security = new Security();
-            $security->setWorkFactor(12);
-            return $security;
-        });
-
-        $di->set(Services::CONFIG, $config);
-        
-
         $di->set(Services::LOGGER, function () use ($config) {
-            $logger = new File($config->application->logsDir . "general.log");
+            $logger = new \PhalconUtils\Util\Logger($config->application->logsDir . "general.log");
             return $logger;
         });
     }
