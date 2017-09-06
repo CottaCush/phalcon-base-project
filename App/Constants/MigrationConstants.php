@@ -9,7 +9,6 @@ namespace App\Constants;
  */
 class MigrationConstants
 {
-
     const TABLE_OAUTH_JWT = 'oauth_jwt';
     const TABLE_OAUTH_SCOPES = 'oauth_scopes';
     const TABLE_OAUTH_ACCESS_TOKENS = 'oauth_access_tokens';

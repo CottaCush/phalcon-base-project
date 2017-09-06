@@ -2,21 +2,15 @@
 
 namespace App\Constants;
 
+use PhalconUtils\Constants\ResponseMessages as PhalconUtilsResponseMessages;
+
 /**
  * Class ResponseMessages
  * @author Adeyemi Olaoye <yemi@cottacush.com>
  * @package App\Library
  */
-class ResponseMessages
+class ResponseMessages extends PhalconUtilsResponseMessages
 {
-    private static $messages = [
-        ResponseCodes::METHOD_NOT_IMPLEMENTED => 'method not implemented',
-        ResponseCodes::INTERNAL_SERVER_ERROR => 'An internal server error occurred',
-        ResponseCodes::UNEXPECTED_ERROR => 'An unexpected error occurred',
-        ResponseCodes::AUTH_ERROR => 'An unexpected error occurred during authentication',
-        ResponseCodes::AUTH_ACCESS_TOKEN_REQUIRED => 'access_token is required'
-    ];
-
     /**
      * @author Adeyemi Olaoye <yemi@cottacush.com>
      * @param $code

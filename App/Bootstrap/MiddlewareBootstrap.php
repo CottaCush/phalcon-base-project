@@ -2,13 +2,12 @@
 
 namespace App\Bootstrap;
 
-use App\Interfaces\BootstrapInterface;
-use App\Middleware\RequestLoggerMiddleware;
-use App\Middleware\OAuthMiddleware;
 use Phalcon\Config;
 use Phalcon\Di\Injectable;
 use Phalcon\DiInterface;
-use PhalconRest\Api;
+use PhalconUtils\Bootstrap\BootstrapInterface;
+use PhalconUtils\Middleware\OAuthMiddleware;
+use PhalconUtils\Middleware\RequestLoggerMiddleware;
 
 /**
  * Class MiddlewareBootstrap

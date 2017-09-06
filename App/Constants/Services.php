@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-use PhalconRest\Constants\Services as BaseServices;
+use PhalconUtils\Constants\Services as BaseServices;
 
 /**
  * Class Services
@@ -11,8 +11,5 @@ use PhalconRest\Constants\Services as BaseServices;
  */
 class Services extends BaseServices
 {
-    const CONFIG = 'config';
-    const OAUTH_SERVER = 'oauthServer';
-    const LOGGER = 'logger';
-    const CONSOLE = 'console';
+
 }
