@@ -31,4 +31,10 @@ return [
     'environment' => getenv('APPLICATION_ENV'),
 
     'debug' => (getenv('DEBUG') == 'true') ? true : false,
+
+    'papertrail' => [
+        'host' => getenv('PAPERTRAIL_HOST'),
+        'port' => getenv('PAPERTRAIL_PORT'),
+        'enabled' => (getenv('PAPERTRAIL_ENABLED') == 'true') ? true : false
+    ]
 ];

@@ -12,4 +12,6 @@ use PhalconUtils\Constants\Services as BaseServices;
 class Services extends BaseServices
 {
 
+    const PAPERTRAIL_LOGGER = 'papertrailLogger';
+    const FILE_LOGGER = 'fileLogger';
 }

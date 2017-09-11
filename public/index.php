@@ -1,6 +1,7 @@
 <?php
 
 use App\Bootstrap\ApiServicesBootStrap;
+use App\Bootstrap\LogServicesBootstrap;
 use App\Bootstrap\MiddlewareBootstrap;
 use App\Bootstrap\RouteBootstrap;
 use App\Constants\ResponseCodes;
@@ -37,6 +38,7 @@ $app = new PhalconRest\Api($di);
 
 // Bootstrap components
 $bootstrap = new Bootstrap(
+    new LogServicesBootstrap,
     new ApiServicesBootStrap,
     new OAuthServiceBootstrap,
     new MiddlewareBootstrap,
