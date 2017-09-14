@@ -8,10 +8,9 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Di\Injectable;
 use Phalcon\DiInterface;
 use Phalcon\Events\Manager as EventsManager;
-use Phalcon\Logger;
-use Phalcon\Logger\Adapter\File;
 use PhalconUtils\Bootstrap\BootstrapInterface;
 use PhalconUtils\Bootstrap\DefaultServicesBootstrap;
+use PhalconUtils\Util\Logger;
 
 /**
  * Class BaseServicesBootStrap
@@ -24,7 +23,7 @@ abstract class BaseServicesBootStrap extends DefaultServicesBootstrap implements
     {
         parent::run($app, $di, $config);
 
-        $di->setShared(Services::DB, function () use ($config) {
+        $di->setShared(Services::DB, function () use ($config, $di) {
             $connection = new DbAdapter([
                 'host' => $config->database->host,
                 'username' => $config->database->username,
@@ -35,23 +34,21 @@ abstract class BaseServicesBootStrap extends DefaultServicesBootstrap implements
 
             if ($config->debug) {
                 $eventsManager = new EventsManager();
-                $logger = new File($config->application->logsDir . "sql_debug.log");
+                $fileTarget = $di->get(Services::FILE_LOGGER, [$config->application->logsDir . 'sql_debug.log']);
+                $paperTrailTarget = $di->get(Services::PAPERTRAIL_LOGGER);
 
-                $eventsManager->attach('db', function ($event, $connection) use ($logger) {
+                $logger = new Logger([$fileTarget, $paperTrailTarget]);
+
+                $eventsManager->attach(Services::DB, function ($event, $connection) use ($logger) {
                     if ($event->getType() == 'beforeQuery') {
                         /** @var DbAdapter $connection */
-                        $logger->log($connection->getSQLStatement(), Logger::DEBUG);
+                        $logger->debug($connection->getSQLStatement());
                     }
                 });
                 $connection->setEventsManager($eventsManager);
             }
 
             return $connection;
-        });
-
-        $di->set(Services::LOGGER, function () use ($config) {
-            $logger = new \PhalconUtils\Util\Logger($config->application->logsDir . "general.log");
-            return $logger;
         });
     }
 }

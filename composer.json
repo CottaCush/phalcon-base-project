@@ -13,12 +13,13 @@
   "minimum-stability": "stable",
   "require": {
     "bshaffer/oauth2-server-php": "^1.8",
-    "cottacush/phalcon-utils": "^2.2",
+    "cottacush/phalcon-utils": "^2.3",
     "redound/phalcon-rest": "^1.4.0",
     "vlucas/phpdotenv": "^2.2",
     "phalcon/incubator": "^3.0",
     "robmorgan/phinx": "^0.5.3",
-    "ext-phalcon": ">=3.0.0"
+    "ext-phalcon": ">=3.0.0",
+    "jeremyharris/psr3-papertrail": "^1.0"
   },
   "require-dev": {
     "codeception/codeception": "^2.2",
@@ -53,4 +54,3 @@
     "mcustiel/phiremock-codeception-extension": "Install phiremock for mocking"
   }
 }
-
