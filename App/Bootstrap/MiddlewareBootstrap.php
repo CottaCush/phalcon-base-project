@@ -19,7 +19,9 @@ class MiddlewareBootstrap implements BootstrapInterface
     public function run(Injectable $api, DiInterface $di, Config $config)
     {
         if ($config->oauth->enabled) {
-            $api->attach(new OAuthMiddleware());
+            $api->attach(function () use ($api) {
+                return (new OAuthMiddleware())->call($api);
+            });
         }
 
         if ($config->environment != 'production' && $config->debug) {

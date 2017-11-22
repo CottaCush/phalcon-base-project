@@ -6,3 +6,6 @@ App/logs
 !App/logs/.gitkeep
 composer.lock
 tests/_support/_generated
+build/logs/
+build/pdepend/
+tests/_generated
