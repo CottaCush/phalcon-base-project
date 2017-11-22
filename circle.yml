@@ -13,14 +13,10 @@ machine:
   hosts:
     test.phalconbaseproject.com: 127.0.0.1
 
-test:
-  override:
-    - ant build
-
 dependencies:
   override:
     - LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php; sudo apt-get update; sudo apt-get install -y php5.6
-    - sudo apt-get install php5.6-dev php5.6-mysql
+    - sudo apt-get install php5.6-dev php5.6-mysql php5.6-xml
     - sudo mv /usr/lib/apache2/modules/libphp5.6.so /usr/lib/apache2/modules/libphp5.so
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
     - git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
@@ -48,4 +44,5 @@ dependencies:
     - cd /etc/apache2/sites-available && sudo a2ensite phalcon-base-project.conf && sudo service apache2 restart
     - sudo a2enmod rewrite && sudo service apache2 restart
     - chmod -R 777 App/logs
+    - ant build
     - sh ./runtest.sh
