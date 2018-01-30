@@ -3,10 +3,10 @@ modules:
     enabled: [PhpBrowser, REST, Db, Asserts, \Helper\Api]
     config:
       PhpBrowser:
-          url: http://test.phalconbaseproject.com
+          url: http://localhost:%PHP_SERVER_PORT%
       REST:
           depends: PhpBrowser
-          url:  http://test.phalconbaseproject.com
+          url:  http://localhost:%PHP_SERVER_PORT%
       Db:
           dsn: mysql:host=%DB_HOST%;dbname=%DB_NAME%
           user: %DB_USERNAME%

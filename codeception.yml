@@ -15,4 +15,14 @@ extensions:
     enabled:
         - Codeception\Extension\RunFailed
         - Codeception\Extension\Teststatistics
-
+        - Codeception\Extension\PhpBuiltinServer
+    config:
+        Codeception\Extension\PhpBuiltinServer:
+            hostname: localhost
+            port: %PHP_SERVER_PORT%
+            autostart: true
+            documentRoot: %CODECEPTION_DOCUMENT_ROOT%
+            router: %CODECEPTION_DOCUMENT_ROOT%/.htrouter.php
+            directoryIndex: index.php
+            startDelay: 1
+            phpIni: %PHP_INI_PATH%
