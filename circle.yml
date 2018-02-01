@@ -12,7 +12,6 @@ machine:
     CLIENT_ID: client_id
   hosts:
     test.phalconbaseproject.com: 127.0.0.1
-  timezone: Africa/Lagos
 
 dependencies:
   override:
@@ -36,6 +35,9 @@ dependencies:
     - sudo echo ' SetEnv APPLICATION_ENV test' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+    - sudo echo ' <IfModule php5_module>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+    - sudo echo ' php_admin_value date.timezone "America/Los_Angeles"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+    - sudo echo ' </IfModule>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' <Directory /home/ubuntu/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo '    AllowOverride all' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo '    Options -MultiViews' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
