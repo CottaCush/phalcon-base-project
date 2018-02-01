@@ -21,6 +21,7 @@ dependencies:
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
     - git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
     - sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /opt/circleci/php/$(phpenv global)/etc/php.ini
+    - sudo echo 'date.timezone="UTC"' | sudo tee -a /opt/circleci/php/$(phpenv global)/etc/php.ini
     - sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /etc/php/5.6/apache2/conf.d/ext-phalcon.ini
     - sudo apt-get install ant
     - composer config -g github-oauth.github.com $GITHUB_TOKEN
@@ -35,9 +36,6 @@ dependencies:
     - sudo echo ' SetEnv APPLICATION_ENV test' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - sudo echo ' <IfModule php5_module>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - sudo echo ' php_admin_value date.timezone "America/Los_Angeles"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - sudo echo ' </IfModule>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo ' <Directory /home/ubuntu/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo '    AllowOverride all' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - sudo echo '    Options -MultiViews' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
