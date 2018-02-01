@@ -12,6 +12,7 @@ machine:
     CLIENT_ID: client_id
   hosts:
     test.phalconbaseproject.com: 127.0.0.1
+  timezone: Africa/Lagos
 
 dependencies:
   override:
