@@ -102,6 +102,10 @@ Seed the database by running the following commands:
 - Seed the Oauth Credentials  
 `CLIENT_ID='<CLIENT_ID>' CLIENT_SECRET='<CLIENT_SECRET>' ./vendor/bin/phinx seed:run -s OauthSeeder -e development`
 
+## Running Tests
+
+* Make a copy of  `.env.sample` to `.env.test` in the env directory and replace values as appropriate.
+* Run the test script `runtest.sh`
 
 
 ## Change log

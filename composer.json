@@ -31,7 +31,8 @@
     "pdepend/pdepend" : "2.2.4",
     "phploc/phploc": "*",
     "phpmd/phpmd" : "@stable",
-    "sebastian/phpcpd": "*"
+    "sebastian/phpcpd": "*",
+    "codeception/phpbuiltinserver": "^1.4"
   },
   "config": {
     "process-timeout": 1800,
