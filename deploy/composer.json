@@ -1,0 +1,14 @@
+{
+  "name": "cottacush/phalcon-base-project",
+  "description": "Phalcon Base Project",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Adeyemi Olaoye",
+      "email": "yemi@cottacush.com"
+    }
+  ],
+  "require": {
+    "deployer/deployer": "^4.0"
+  }
+}
