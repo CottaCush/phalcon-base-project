@@ -19,13 +19,6 @@ task('deploy:update_staging', function () {
     runLocally('cd ' . get('local_path'));
     runLocally('git stash');
     runLocally('git fetch');
-
-    runLocally('git checkout develop');
-    runLocally('git pull origin develop');
-    runLocally('git checkout staging');
-    runLocally('git pull origin staging');
-    runLocally('git merge develop');
-    runLocally('git push origin staging');
 })->onlyForStage('staging');
 
 task('deploy:run_migrations', function () {
@@ -71,7 +64,7 @@ task('release:tag_release', function () {
 
     runLocally('git tag -a ' . $releaseVersion . ' -m "' . $releaseMessage . '"');
     runLocally('git push --tags');
-    runLocally('git checkout develop');
+    runLocally('git checkout master');
     writeln('Release Tagged Successfully');
 })->onlyForStage('production');
 
@@ -82,20 +75,6 @@ task('deploy:update_production', function () {
     runLocally('git fetch');
     runLocally('git checkout master');
     runLocally('git pull origin master');
-
-    if (get('IS_KANBAN_DEPLOYMENT') != 1) {
-        runLocally('git checkout staging');
-        runLocally('git pull origin staging');
-        runLocally('git checkout master');
-        runLocally('git merge staging');
-        runLocally('git push origin master');
-    }
-
-    runLocally('git checkout production');
-    runLocally('git pull origin production');
-    runLocally('git merge master');
-    runLocally('git push origin production');
-    writeln('Production Branch Updated Successfully');
 })->onlyForStage('production');
 
 task('webserver:restart', function () {
