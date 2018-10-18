@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Coverage Status][ico-coverall]][link-coverall]
 
 > Base project for bootstrapping phalcon projects
 
@@ -131,6 +132,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cottacush/phalcon-base-project.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/cottacush/phalcon-base-project.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/cottacush/phalcon-base-project.svg?style=flat-square
+[ico-coverall]: https://coveralls.io/repos/github/CottaCush/phalcon-base-project/badge.svg?style=flat-square
 
 [link-packagist]: https://poser.pugx.org/cottacush/phalcon-base-project/v/stable
 [link-travis]: https://travis-ci.org/cottacush/phalcon-base-project
@@ -139,3 +141,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/cottacush/phalcon-base-project
 [link-author]: https://github.com/yemexx1
 [link-contributors]: ../../contributors
+[link-coverall]: https://coveralls.io/github/CottaCush/phalcon-base-project
