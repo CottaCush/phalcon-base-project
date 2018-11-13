@@ -32,13 +32,18 @@ jobs:
             php -v
             php composer.phar --version
       - run: ls
-      - run: sudo php --ini
+      - run: php --ini
       #- run: rm /usr/local/etc/php/conf.d/xdebug.ini   le /etc/php/5.6/mods-available/phar.ini /etc/php/5.6/cli/php.ini
-      - run: git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
+      #- run: git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
       #- run: sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /usr/local/etc/php/5.6/php.ini
-      - run: sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /etc/php/5.6/cli/php.ini
+      #- run: sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /etc/php/5.6/cli/php.ini
       - run: sudo echo 'date.timezone="UTC"' | sudo tee -a /etc/php/5.6/cli/php.ini
-      - run: sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /etc/php/5.6/apache2/conf.d/ext-phalcon.ini
+     # - run: sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /etc/php/5.6/apache2/conf.d/ext-phalcon.ini
+      - run:
+          name: Install Phalcon Dependencies
+          command: |
+            curl -L https://raw.githubusercontent.com/yemexx1/phalcon-switcher/master/phalcon-switcher.sh && sudo mv phalcon-switcher.sh /usr/local/bin/phalcon-switcher
+            sudo phalcon-switcher 3.2.0
       - run: sudo apt-get install ant
       - run: php composer.phar config -g github-oauth.github.com $GITHUB_TOKEN
       - run: php composer.phar install
