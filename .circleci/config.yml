@@ -1,4 +1,3 @@
-version: 2
 install_composer: &install_composer
   command: |
     cd /tmp
@@ -15,6 +14,7 @@ install_composer: &install_composer
     RESULT=$?
     rm composer-setup.php
     exit $RESULT
+version: 2
 jobs:
   build:
     machine:
