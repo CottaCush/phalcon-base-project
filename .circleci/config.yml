@@ -42,7 +42,10 @@ jobs:
       - run:
           name: Install Phalcon Dependencies
           command: |
-            curl -L https://raw.githubusercontent.com/yemexx1/phalcon-switcher/master/phalcon-switcher.sh && sudo mv phalcon-switcher.sh /usr/local/bin/phalcon-switcher
+            git clone https://github.com/yemexx1/phalcon-switcher.git
+            cd phalcon-switcher
+            chmod +x phalcon-switcher.sh
+            sudo ln -s `pwd`/phalcon-switcher.sh /usr/local/bin/phalcon-switcher
             sudo phalcon-switcher 3.2.0
       - run: sudo apt-get install ant
       - run: php composer.phar config -g github-oauth.github.com $GITHUB_TOKEN
