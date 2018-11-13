@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  working_directory: /var/www/html
+  #working_directory: /var/www/html
   build:
     machine:
       php:
