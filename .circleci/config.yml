@@ -36,6 +36,7 @@ jobs:
       - run: LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php; sudo apt-get update; sudo apt-get install -y php5.6
       - run: sudo apt-get install php5.6-dev php5.6-mysql php5.6-xml
       - run: sudo mv /usr/lib/apache2/modules/libphp5.6.so /usr/lib/apache2/modules/libphp5.so
+      - run: pwd
       - run: sudo php --ini
       #- run: rm /usr/local/etc/php/conf.d/xdebug.ini   le /etc/php/5.6/mods-available/phar.ini /etc/php/5.6/cli/php.ini
       - run: git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
@@ -46,6 +47,7 @@ jobs:
       - run: sudo apt-get install ant
       - run:
         <<: *install_composer
+      - run: pwd
       - run: composer config -g github-oauth.github.com $GITHUB_TOKEN
       - run: composer install
       - run: mv env/.env.circleci env/.env.test
