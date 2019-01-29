@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /home/ubuntu/phalcon-base-project
+    working_directory: ~/phalcon-base-project
     parallelism: 1
     shell: /bin/bash --login
     environment:
@@ -16,8 +16,8 @@ jobs:
 
     docker:
     #- image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-    - image: circleci/php:7-apache-node-browsers
-    - image: circleci/mysql:5.7.22
+    - image: circleci/php:7.1-jessie-node-browsers
+    #- image: circleci/mysql:5.7.22
       #command: /sbin/init
     steps:
     - checkout
@@ -26,7 +26,7 @@ jobs:
         working_directory: ~/CottaCush/phalcon-base-project
         command: 'sudo service mysql status || sudo service mysql start; '
     - run:
-        working_directory: /home/ubuntu/phalcon-base-project
+        working_directory: ~/phalcon-base-project
         command: |-
           printf '127.0.0.1       test.phalconbaseproject.com
           ' | sudo tee -a /etc/hosts
@@ -57,13 +57,13 @@ jobs:
     - run: chmod -R 777 App/logs
     - run: sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo ' ServerAdmin yemi@cottacush.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' DocumentRoot "/home/ubuntu/phalcon-base-project/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+    - run: sudo echo ' DocumentRoot "~/phalcon-base-project/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo ' ServerName test.phalconbaseproject.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo ' ServerAlias test.phalconbaseproject' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo ' SetEnv APPLICATION_ENV test' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo ' ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo ' CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' <Directory /home/ubuntu/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+    - run: sudo echo ' <Directory ~/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo '    AllowOverride all' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo '    Options -MultiViews' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
     - run: sudo echo '    Require all granted' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
