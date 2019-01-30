@@ -1,104 +1,64 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/phalcon-base-project
-    parallelism: 1
-    shell: /bin/bash --login
-    environment:
-      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-      DB_HOST: 127.0.0.1
-      DB_NAME: phalcon_base_project_test
-      DB_USERNAME: root
-      DB_PASSWORD: ''
-      CLIENT_SECRET: client_secret
-      CLIENT_ID: client_id
-
-    docker:
-    #- image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-    - image: circleci/php:7.1-jessie-node-browsers
-    #- image: circleci/mysql:5.7.22
-      #command: /sbin/init
+    machine:
+      php:
+        version: 5.6.22
+      mysql:
+          version: 5.7.12
+      environment:
+        DB_HOST: 127.0.0.1
+        DB_NAME: phalcon_base_project_test
+        DB_USERNAME: root
+        DB_PASSWORD: ""
+        CLIENT_SECRET: client_secret
+        CLIENT_ID: client_id
+      hosts:
+        test.phalconbaseproject.com: 127.0.0.1
     steps:
-    - checkout
-    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
-    - run:
-        working_directory: ~/CottaCush/phalcon-base-project
-        command: 'sudo service mysql status || sudo service mysql start; '
-    - run:
-        working_directory: ~/phalcon-base-project
-        command: |-
-          printf '127.0.0.1       test.phalconbaseproject.com
-          ' | sudo tee -a /etc/hosts
-    # Dependencies
-    #   This would typically go in either a build or a build-and-test job when using workflows
-    # Restore the dependency cache
-    - restore_cache:
-        keys:
-        # This branch if available
-        - v1-dep-{{ .Branch }}-
-        # Default branch if not
-        - v1-dep-master-
-        # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
-        - v1-dep-
-    # This is based on your 1.0 configuration file or project settings
-    - run: LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php; sudo apt-get update; sudo apt-get install -y php5.6
-    - run: sudo apt-get install php5.6-dev php5.6-mysql php5.6-xml
-    - run: sudo mv /usr/lib/apache2/modules/libphp5.6.so /usr/lib/apache2/modules/libphp5.so
-    - run: rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
-    #- run: git clone --depth=1 git://github.com/phalcon/cphalcon.git; cd cphalcon/build; sudo ./install;
-    #- run: sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /opt/circleci/php/$(phpenv global)/etc/php.ini
-    - run: sudo echo 'date.timezone="UTC"' | sudo tee -a /opt/circleci/php/$(phpenv global)/etc/php.ini
-    #- run: sudo echo "extension=/usr/lib/php/20131226/phalcon.so" | sudo tee -a /etc/php/5.6/apache2/conf.d/ext-phalcon.ini
-    - run: sudo apt-get install ant
-    - run: composer config -g github-oauth.github.com $GITHUB_TOKEN
-    - run: composer install
-    - run: mv env/.env.circleci env/.env.test
-    - run: chmod -R 777 App/logs
-    - run: sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' ServerAdmin yemi@cottacush.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' DocumentRoot "~/phalcon-base-project/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' ServerName test.phalconbaseproject.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' ServerAlias test.phalconbaseproject' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' SetEnv APPLICATION_ENV test' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' <Directory ~/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo '    AllowOverride all' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo '    Options -MultiViews' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo '    Require all granted' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' </Directory>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: sudo echo ' </VirtualHost>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-    - run: cd /etc/apache2/sites-available && sudo a2ensite phalcon-base-project.conf && sudo service apache2 restart
-    - run: sudo a2enmod rewrite && sudo service apache2 restart
-    - run: chmod -R 777 App/logs
-    - run: ant build
-    - run: sh ./runtest.sh
-    # Save dependency cache
-    - save_cache:
-        key: v1-dep-{{ .Branch }}-{{ epoch }}
-        paths:
-        # This is a broad list of cache paths to include many possible development environments
-        # You can probably delete some of these entries
-        - vendor/bundle
-        - ~/virtualenvs
-        - ~/.m2
-        - ~/.ivy2
-        - ~/.bundle
-        - ~/.go_workspace
-        - ~/.gradle
-        - ~/.cache/bower
-    # Test
-    #   This would typically be a build job when using workflows, possibly combined with build
-    # The following line was run implicitly in your 1.0 builds based on what CircleCI inferred about the structure of your project. In 2.0 you need to be explicit about which commands should be run. In some cases you can discard inferred commands if they are not relevant to your project.
-    - run: ant
-    # Teardown
-    #   If you break your build into multiple jobs with workflows, you will probably want to do the parts of this that are relevant in each
-    # Save test results
-    - store_test_results:
-        path: /tmp/circleci-test-results
-    # Save artifacts
-    - store_artifacts:
-        path: /tmp/circleci-artifacts
-    - store_artifacts:
-        path: /tmp/circleci-test-results
+      - checkout
+      - run: LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php; sudo apt-get update; sudo apt-get install -y php5.6
+      - run: sudo apt-get install php5.6-dev php5.6-mysql php5.6-xml php5.6-curl php5.6-mbstring php-phalcon libapache2-mod-php5
+      - run:
+          name: Install Composer
+          command: |
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
+      - run:
+          name: Display PHP information
+          command: |
+            php -v
+            php composer.phar --version
+      #- run: rm /usr/local/etc/php/conf.d/xdebug.ini   le /etc/php/5.6/mods-available/phar.ini /etc/php/5.6/cli/php.ini
+      - run: sudo echo 'date.timezone="UTC"' | sudo tee -a /etc/php/5.6/cli/php.ini
+      - run: sudo apt-get install ant
+      - run: php composer.phar config -g github-oauth.github.com $GITHUB_TOKEN
+      - run: php composer.phar install
+      - run:
+          name: Install MySQL
+          command: |
+            curl -sSL https://gist.githubusercontent.com/toshimaru/06ffbf2e8ad7d4e3dab889fa27681835/raw/install-mysql5.7-circleci.sh | sh
+
+      - run: mv env/.env.circleci env/.env.test
+      - run: chmod -R 777 App/logs
+      - run: sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' ServerAdmin yemi@cottacush.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' DocumentRoot "/home/ubuntu/phalcon-base-project/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' ServerName test.phalconbaseproject.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' ServerAlias test.phalconbaseproject' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' SetEnv APPLICATION_ENV test' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' <Directory /home/ubuntu/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo '    AllowOverride all' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo '    Options -MultiViews' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo '    Require all granted' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo ' </Directory>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: sudo echo '</VirtualHost>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
+      - run: cd /etc/apache2/sites-available && sudo a2ensite phalcon-base-project.conf && sudo service apache2 restart
+      - run: sudo a2enmod rewrite && sudo service apache2 restart
+      - run: chmod -R 777 App/logs
+      - run: ant build
+      - run: sh ./runtest.sh
