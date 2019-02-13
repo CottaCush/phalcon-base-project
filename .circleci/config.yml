@@ -7,8 +7,8 @@ jobs:
 #      mysql:
 #          version: 5.7.12
     docker:
-      - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-      - image: circleci/php:7-apache-node-browsers
+      #- image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
+      - image: circleci/php:5.6-apache-node-browsers-legacy
       - image: circleci/mysql:5.7.22
     environment:
       DB_HOST: 127.0.0.1
@@ -17,7 +17,8 @@ jobs:
       DB_PASSWORD: ""
       CLIENT_SECRET: client_secret
       CLIENT_ID: client_id
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
     hosts:
       test.phalconbaseproject.com: 127.0.0.1
     steps:
@@ -41,11 +42,6 @@ jobs:
       - run: sudo apt-get install ant
       - run: php composer.phar config -g github-oauth.github.com $GITHUB_TOKEN
       - run: php composer.phar install
-      - run:
-          name: Install MySQL
-          command: |
-            curl -sSL https://gist.githubusercontent.com/toshimaru/06ffbf2e8ad7d4e3dab889fa27681835/raw/install-mysql5.7-circleci.sh | sh
-
       - run: mv env/.env.circleci env/.env.test
       - run: chmod -R 777 App/logs
       - run: sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
