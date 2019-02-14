@@ -71,8 +71,6 @@ jobs:
       - run:
           name: Setup Virtual Host
           command: |
-            mv env/.env.circleci env/.env.test
-            chmod -R 777 App/logs
             sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
             sudo echo ' ServerAdmin yemi@cottacush.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
             sudo echo ' DocumentRoot "/home/circleci/project/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
