@@ -1,65 +1,41 @@
 version: 2
 jobs:
   build:
-#    machine:
-#      php:
-#        version: 5.6.22
-#      mysql:
-#          version: 5.7.12
     docker:
-      #- image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-      - image: circleci/php:5.6-apache-node-browsers-legacy
-      - image: circleci/mysql:5.7.22
-    environment:
-      DB_HOST: 127.0.0.1
-      DB_NAME: phalcon_base_project_test
-      DB_USERNAME: root
-      DB_PASSWORD: ""
-      CLIENT_SECRET: client_secret
-      CLIENT_ID: client_id
-      MYSQL_USER: root
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
-    hosts:
-      test.phalconbaseproject.com: 127.0.0.1
+      # specify the version you desire here
+      - image: circleci/php:7.2-apache-stretch-node-browsers
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_HOST: 127.0.0.1
+
     steps:
       - checkout
-      - run: LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php; sudo apt-get update; sudo apt-get install -y php5.6
-      - run: sudo apt-get install php5.6-dev php5.6-mysql php5.6-xml php5.6-curl php5.6-mbstring php-phalcon libapache2-mod-php5
       - run:
-          name: Install Composer
+          name: Install things we need
           command: |
-            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
-            php composer-setup.php
-            php -r "unlink('composer-setup.php');"
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev
+            sudo apt-get install -y zlib1g-dev libicu-dev g++
+            sudo apt-get install mysql-client
+            sudo apt-get -y install mysql-server
       - run:
-          name: Display PHP information
+          name: Install PHP exts
           command: |
-            php -v
-            php composer.phar --version
-      #- run: rm /usr/local/etc/php/conf.d/xdebug.ini   le /etc/php/5.6/mods-available/phar.ini /etc/php/5.6/cli/php.ini
-      - run: sudo echo 'date.timezone="UTC"' | sudo tee -a /etc/php/5.6/cli/php.ini
-      - run: sudo apt-get install ant
-      - run: php composer.phar config -g github-oauth.github.com $GITHUB_TOKEN
-      - run: php composer.phar install
-      - run: mv env/.env.circleci env/.env.test
-      - run: chmod -R 777 App/logs
-      - run: sudo echo '<VirtualHost *:80>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' ServerAdmin yemi@cottacush.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' DocumentRoot "/home/ubuntu/phalcon-base-project/public"' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' ServerName test.phalconbaseproject.com' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' ServerAlias test.phalconbaseproject' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' SetEnv APPLICATION_ENV test' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' ErrorLog ${APACHE_LOG_DIR}/test.phalconbaseproject.error.log' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' CustomLog ${APACHE_LOG_DIR}/test.phalconbaseproject.access.log common' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' <Directory /home/ubuntu/phalcon-base-project/public>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo '    AllowOverride all' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo '    Options -MultiViews' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo '    Require all granted' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo ' </Directory>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: sudo echo '</VirtualHost>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
-      - run: cd /etc/apache2/sites-available && sudo a2ensite phalcon-base-project.conf && sudo service apache2 restart
-      - run: sudo a2enmod rewrite && sudo service apache2 restart
-      - run: chmod -R 777 App/logs
-      - run: ant build
-      - run: sh ./runtest.sh
+            sudo docker-php-ext-install zip
+            sudo docker-php-ext-configure intl
+            sudo docker-php-ext-install intl
+            sudo docker-php-ext-install pdo_mysql
+      - run:
+          name: Fix MySQL socket config
+          command: |
+            sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
+      - run:
+          name: Start database server
+          command: |
+            sudo service mysql start
+            sleep 2
+            ps aux | grep mysql
+      - run:
+          name: Create non-admin user
+          command: |
+            sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"
