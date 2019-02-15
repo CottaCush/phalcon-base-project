@@ -46,7 +46,7 @@ jobs:
           name: Create non-admin user
           command: |
             sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"
-            sudo mysql -u root -e "GRANT ALL ON *.* to root@'%' IDENTIFIED BY 'password';"
+            sudo mysql -u root -e "GRANT ALL ON *.* to myuser@'%' IDENTIFIED BY 'password';"
             sudo mysql -u root -e "FLUSH PRIVILEGES;"
       - run:
           name: Install Phalcon
