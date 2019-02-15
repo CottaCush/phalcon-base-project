@@ -20,8 +20,6 @@ jobs:
           name: Install Mysql & Dependencies
           command: |
             sudo apt-get update
-#            sudo apt-get install -y libzip-dev
-#            sudo apt-get install -y zlib1g-dev libicu-dev g++
             sudo apt-get install mysql-client
             sudo apt-get install -y mysql-server
 
