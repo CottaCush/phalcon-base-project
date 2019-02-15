@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/php:7.2-apache-stretch-node-browsers
         environment:
           MYSQL_ROOT_PASSWORD: root
@@ -18,36 +17,39 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install things we need
+          name: Install Mysql & Dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y libzip-dev
-            sudo apt-get install -y zlib1g-dev libicu-dev g++
+#            sudo apt-get install -y libzip-dev
+#            sudo apt-get install -y zlib1g-dev libicu-dev g++
             sudo apt-get install mysql-client
-            sudo apt-get install mysql-server
+            sudo apt-get install -y mysql-server
+
       - run:
-          name: Install PHP exts
+          name: Install PHP extensions
           command: |
             sudo docker-php-ext-install zip
             sudo docker-php-ext-configure intl
             sudo docker-php-ext-install intl
             sudo docker-php-ext-install pdo_mysql
+
       - run:
           name: Fix MySQL socket config
           command: |
             sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
+
       - run:
           name: Start database server
           command: |
             sudo service mysql start
-            sleep 2
-            ps aux | grep mysql
+
       - run:
           name: Create non-admin user
           command: |
             sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"
             sudo mysql -u root -e "GRANT ALL ON *.* to myuser@'%' IDENTIFIED BY 'password';"
             sudo mysql -u root -e "FLUSH PRIVILEGES;"
+
       - run:
           name: Install Phalcon
           command: |
@@ -63,11 +65,13 @@ jobs:
             cd ~/project
             composer config -g github-oauth.github.com $GITHUB_TOKEN
             composer install
+
       - run:
           name: Create env file
           command: |
             mv env/.env.circleci env/.env.test
             chmod -R 777 App/logs
+
       - run:
           name: Setup Virtual Host
           command: |
@@ -87,6 +91,7 @@ jobs:
             sudo echo ' </VirtualHost>' | sudo tee -a /etc/apache2/sites-available/phalcon-base-project.conf
             cd /etc/apache2/sites-available && sudo a2ensite phalcon-base-project.conf && sudo service apache2 restart
             sudo a2enmod rewrite && sudo service apache2 restart
+
       - run:
           name: Install Ant Build
           command: |
@@ -97,4 +102,3 @@ jobs:
           name: Run Test
           command: |
             sh ./runtest.sh
-
