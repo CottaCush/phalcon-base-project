@@ -4,12 +4,10 @@ jobs:
     docker:
       - image: circleci/php:7.2-apache-stretch-node-browsers
         environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_HOST: 127.0.0.1
           DB_HOST: 127.0.0.1
           DB_NAME: phalcon_base_project_test
-          DB_USERNAME: myuser
-          DB_PASSWORD: password
+          DB_USERNAME: root
+          DB_PASSWORD: ""
           CLIENT_SECRET: client_secret
           CLIENT_ID: client_id
 
@@ -41,10 +39,9 @@ jobs:
             sudo service mysql start
 
       - run:
-          name: Create non-admin user
+          name: Update root user privileges
           command: |
-            sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"
-            sudo mysql -u root -e "GRANT ALL ON *.* to myuser@'%' IDENTIFIED BY 'password';"
+            sudo mysql -u root -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE user='root';"
             sudo mysql -u root -e "FLUSH PRIVILEGES;"
 
       - run:
