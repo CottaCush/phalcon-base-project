@@ -12,8 +12,8 @@ jobs:
           DB_PASSWORD: password
           CLIENT_SECRET: client_secret
           CLIENT_ID: client_id
-        hosts:
-          test.phalconbaseproject.com: 127.0.0.1
+    hosts:
+      test.phalconbaseproject.com: 127.0.0.1
     steps:
       - checkout
       - run:
