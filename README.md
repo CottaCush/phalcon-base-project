@@ -132,7 +132,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cottacush/phalcon-base-project.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/cottacush/phalcon-base-project.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/cottacush/phalcon-base-project.svg?style=flat-square
-[ico-circleci]: https://circleci.com/gh/CottaCush/phalcon-base-project.svg?style=svg
+[ico-circleci]: https://img.shields.io/circleci/project/github/CottaCush/phalcon-base-project/master.svg?style=flat-square&logo=circleci
 
 [link-packagist]: https://poser.pugx.org/cottacush/phalcon-base-project/v/stable
 [link-travis]: https://travis-ci.org/cottacush/phalcon-base-project
