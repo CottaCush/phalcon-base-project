@@ -54,9 +54,23 @@ jobs:
             sudo phalcon-switcher 3.3.2
 
       - run:
+          name: Install Phalcon
+          command: |
+            cd /home/circleci/project
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "composer.json" }}
+          - v1-dependencies-
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+
+      - run:
           name: Run Composer Install
           command: |
-            cd ~/project
             composer config -g github-oauth.github.com $GITHUB_TOKEN
             composer install
 
