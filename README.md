@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
+[![CircleCI][ico-circleci]][link-circleci]
 
 > Base project for bootstrapping phalcon projects
 
@@ -67,17 +68,17 @@ server {
     access_log <log directory>/test.phalconbaseproject.com.access.log;
     error_log <log directory>/test.phalconbaseproject.com.error.log;
 
- location / {
+    location / {
         try_files $uri $uri/ /index.php?_url=$uri&$args;
     }
 
 
     location ~ \.php$ {
-    fastcgi_pass unix:<php fpm sock file path>;
-    fastcgi_index index.php;
-    fastcgi_param APPLICATION_ENV test;
-    include <fastcgi params path>/fastcgi_params;
-    fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+        fastcgi_pass unix:<php fpm sock file path>;
+        fastcgi_index index.php;
+        fastcgi_param APPLICATION_ENV test;
+        include <fastcgi params path>/fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
     }
 }
 ```
@@ -131,6 +132,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cottacush/phalcon-base-project.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/cottacush/phalcon-base-project.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/cottacush/phalcon-base-project.svg?style=flat-square
+[ico-circleci]: https://img.shields.io/circleci/project/github/CottaCush/phalcon-base-project/master.svg?style=flat-square&logo=circleci
 
 [link-packagist]: https://poser.pugx.org/cottacush/phalcon-base-project/v/stable
 [link-travis]: https://travis-ci.org/cottacush/phalcon-base-project
@@ -139,3 +141,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/cottacush/phalcon-base-project
 [link-author]: https://github.com/yemexx1
 [link-contributors]: ../../contributors
+[link-circleci]: https://circleci.com/gh/CottaCush/phalcon-base-project
